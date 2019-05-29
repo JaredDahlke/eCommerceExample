@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+
+<style>
+
+body{
+    font-family: 'Lato';
+}
+
+h1, h2, h3 {
+color: #002b5a;
+bottom-margin: 42px;
+font-style: : capitalize;
+}
+h1{
+font-size: 42px;
+font-weight: 200;
+}
+h2{
+font-size: 40px;
+font-weight: 200;
+}
+h3{
+font-size: 15px;
+font-weight: normal;
+}
+
+p header content{
+    color: #333;
+    font-size: 18px;
+    font-family: 'Lato';
+
+}
+
+p light-gray{
+ font-size: 12px;
+ text-align: justify;
+
+}
+
+
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+input {
+  border: 1px solid transparent;
+  padding: 10px;
+  color:#002b5a; 
+  font-size:13px;
+
+}
+input[type=text] {
+  background-color: white;
+  width: 90%;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+  color:#002b5a;
+  font-size:13px;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9; 
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+   
+}
+
+.LearnMoreItems{
+width: 270px;
+height: 160px;
+float:left;
+position: relative; 
+}
+
+
+
+.LearnMore{
+ margin-top: 20px;
+ position: absolute; 
+ left: 0; 
+ bottom: 0;
+ background-color: white;
+ border: none;
+ box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+ color: #002b5a;
+}
+
+.LearnMoreProducts
+{
+ margin-top: 20px;
+ position: absolute; 
+ left: 0; 
+ bottom: 0;
+ background-color: white;
+ border: none;
+ color: #002b5a;
+ 
+}
+
+.Products{
+width: 185px;
+height: 320px;
+float:left;
+position: relative; 
+background-color: white;
+ cursor: pointer;
+}
+
+.StartingAt
+{
+    color:#4987ca;
+    font-size: 13px ;
+
+}
+
+.ProductImage
+{
+    position: absolute;
+    left:0;
+    bottom:40px;
+}
+
+.badge
+{
+    background-color: #70c5e5;
+    margin-right: 15px;
+
+}
+
+.close{
+  font-size: 40px;
+  position:absolute;
+  top: 10px;
+  right: 2%;
+}
+
+
+
+</style>
+
+<title></title>
+
+</head>
+<body>
+
+
+
+     <div id="container" style="margin: auto; max-width: 960px; background-color: #E8E8E8; margin-top:2%; margin-bottom: 2%;">
+        <div style="position: relative;">
+            <img src="images/banner.jpg" style="max-width: 100%">
+            <label class="HideIfMobile" style="position: absolute; bottom: 8.5%; left: 73%; color: white;">Connect:</label>
+            <img class="HideIfMobile"  src="images/fb.png"  style="position: absolute; bottom: 10%; left: 80%;">
+            <img class="HideIfMobile" src="images/twitter.png"  style="position: absolute; bottom: 10%; left:83%;">
+            <img class="HideIfMobile" src="images/pinterest.png"  style="position: absolute; bottom: 10%; left: 86%;">
+            <img class="HideIfMobile" src="images/blog.png"  style="position: absolute; bottom: 10%; left: 89%;">
+            <img class="HideIfMobile" src="images/email.png"  style="position: absolute; bottom: 10%; left: 92%;">
+     </div>
+
+
+        <!-- Taken from Bootstrap's documentation -->
+<div class="modal fade" id="StateModal" style="z-index:1999;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="StateModalTitle"></h4>
+
+      </div>
+       <div class="modal-body" id="StateModalBody" >                  
+            <p style="color: #002b5a; bottom-margin: 5px; font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim neque, molestie ut placerat id, tincidunt in sem. Pellentesque sodales lobortis eros nec pulvinar. In ac ultrices ipsum, ultricies semper nisi. Morbi ac hendrerit nulla. Sed nec ex commodo, tincidunt felis ac, iaculis ipsum.</p>                                          
+        </div>
+      <div class="modal-footer">
+       
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+  <div id="topSection" style="display:inline-block; width:100%;">
+
+    <div style="display:inline-block; width: 61%;  float:left; padding-left:5%; ">
+      <h1 class="ProductDetailLorem smallerMobile">In Gravida Libero</h1>
+      <p class="ProductDetailLorem2" style="color: #333;bottom-margin: 5px; font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim neque, molestie ut placerat id, tincidunt in sem. Pellentesque sodales lobortis eros nec pulvinar. In ac ultrices ipsum, ultricies semper nisi. Morbi ac hendrerit nulla. Sed nec ex commodo, tincidunt felis ac, iaculis ipsum.</p>
+      <p class="ProductDetailLorem2" style="color: #333;bottom-margin: 5px; font-size:18px;">Morbi ac hendrerit nulla. Sed nec ex commodo, tincidunt felis ac, iaculis ipsum</p>
+    </div>
+
+    <div id="StateFinder" style="display: inline-block; width: 275px; float:left; background-color: #F7F7F7;  padding: 15px; margin: 20px; margin-right: 0%;  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);">
+      <h2 style="font-size:20px; bottom-margin: 20px;">State Finder</h2>
+      <p style="color: #002b5a;bottom-margin: 5px; font-size:12px;">Morbi ac hendrerit nulla. Sed nec ex commodo</p>
+
+      <form autocomplete="off" action="/action_page.php">
+
+        <div class="form-group has-search autocomplete" style="width:220px; max-width: 100%;">
+         <span class="fa fa-search form-control-feedback" style="padding-top: 9px; padding-left:25px;"></span>
+         <input id="myInput" type="text" name="myState" placeholder="State">     
+       </div>
+     </form>
+
+   </div>
+  </div>
+
+    <div id="SecondSection" style="background-color: #F7F7F7; margin: 5%; margin-top:1%; margin-bottom: 1%; padding: 2%; display: inline-block;">
+     
+        <h2>In Gravida</h2>
+
+         <div id="LearnMoreSection" style="">  
+            <div class="LearnMoreItems"> 
+                <h3 style="font-weight: 505;">Cras ac mauris</h3>
+                <p>nteger dictum hendrerit pharetra. Cras fermentum posuere egestas.</p> 
+                 <button type="button" class="btn btn-secondary LearnMore">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+
+            <div class="LearnMoreItems">
+                <h3 style="font-weight: 505;">Curabitur elementum</h3>
+                <p>Cras vel imperdiet mauris. Pellentesque libero mauris, interdum a felis et, condimentum mattis erat.</p>
+                <button type="button" class="btn btn-secondary LearnMore">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+
+            <div class="LearnMoreItems">
+                <h3 style="font-weight: 505;">Awards and Recognitions</h3>
+                <p>Aliquam eget ligula mauris. Etiam viverra non turpis eu auctor. Nullam pretium est libero, et condimentum massa egestas id. </p>
+                 <button type="button" class="btn btn-secondary LearnMore">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+
+            <div class="LearnMoreItems" >
+                <h3 style="font-weight: 505;">Morbi placerat </h3>
+                <p> Nam feugiat ultrices ligula eget faucibus. Mauris convallis ipsum est.</p>
+                 <button type="button" class="btn btn-secondary LearnMore">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+
+            <div class="LearnMoreItems">
+                <h3 style="font-weight: 505;">Suspendisse eu</h3>
+                <p>Duis pretium elementum dui, id feugiat neque facilisis vel.</p>
+                 <button type="button" class="btn btn-secondary LearnMore">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+
+            <div class="LearnMoreItems">
+                <h3 style="font-weight: 505;"> Integer faucibus</h3>
+                <p> Vivamus at rutrum est, eu pellentesque lacus. Curabitur imperdiet tortor sit amet enim ullamcorper, a aliquet odio rutrum.</p>
+                 <button type="button" class="btn btn-secondary LearnMore">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+
+         </div>
+
+    </div>
+
+
+
+    <div id="ProductsSection" style=" width: 90%; background-color: #F7F7F7; margin: 5%; padding: 2%; margin-top:1%; margin-bottom: 1%; display: inline-block; position: relative;">
+        <h2 style="max-width: 40%;">Products</h2>
+
+        <div style=" max-width: 40%; width:300px; position: absolute; top: 0; right: 0; margin-top: 40px; display: inline-block; margin-right: 2%; ">      
+            <label class="HideIfMobile" style="display: inline-block; float:left; margin-top: 8px; margin-right: 10px;">Filter by</label>     
+            <select class="form-control" id="PriceSelect" style="display: inline-block; float:left; width: 225px; max-width: 100%;" onchange="DisplayProducts()">
+                <option value="All">All</option>
+                <option value="500-999">From $500 to $999</option>
+                <option value="1000-1999">From $1,000 to $1,999</option>
+                <option value="2000More">$2,000 or more</option>
+            </select>
+        </div>
+
+        <br>
+        <br>
+
+        
+
+            <div id="500" class="Products" style="margin-right: 20px;">
+                <h3 style="font-size: 17px;">Product Title 1</h3>         
+                <div class="StartingAt">Starting at $500</div>         
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>   
+                <img class="ProductImage" src="images/cereal_b.jpg" style="max-width: 100%;">        
+                 <button type="button" class="btn btn-secondary LearnMoreProducts">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+            <div id="1900" class="Products" style="margin-right: 20px;">
+                <h3 style="font-size: 17px;">Product Title 2</h3>   
+                <div class="StartingAt">Starting at $1,900</div>
+                <p>Donec ornare magna sit amet erat molestie sollicitudin ac vitae lectus..</p> 
+                 <img  class="ProductImage" src="images/flower_b.jpg" style="max-width: 100%;">    
+                 <button type="button" class="btn btn-secondary LearnMoreProducts">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+            <div id="2730" class="Products" style="margin-right: 20px;">
+                <h3 style="font-size: 17px;">Product Title 3</h3>   
+                <div class="StartingAt">Starting at $2,730</div>
+                <p>Cras non metus sed odio tristique imperdiet..</p> 
+                 <img  class="ProductImage" src="images/machine_b.jpg" style="max-width: 100%;">    
+                 <button type="button" class="btn btn-secondary LearnMoreProducts">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+            <div id="731" class="Products">
+                <h3 style="font-size: 17px;">Product Title 4</h3>   
+                <div class="StartingAt">Starting at $731</div>
+                <p>Pellentesque mattis tellus ut molestie dapibus..</p> 
+                 <img  class="ProductImage" src="images/candy_b.jpg" style="max-width: 100%;">    
+                 <button type="button" class="btn btn-secondary LearnMoreProducts">Learn More
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+            </div>
+       
+
+    </div>
+
+    <div id="ProductOneDetails" style="width: 90%; background-color: #F7F7F7; margin: 5%; padding: 2%; display: none; position: relative;">
+      <h3 style="font-size: 24px;">Product Title 1</h3>  
+      <button type="button" id="close1" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+      <br>
+      <div style="width:50%; float:left; padding-right: 25px;">
+        <div class="StartingAt" style="color:#4987ca; font-size: 19px;">Starting at $731</div> 
+        <br>        
+        <p class = "ProductDetailLorem">Cras a ante eget dui dignissim molestie nec non lectus. Donec id sapien tristique, iaculis odio a, gravida ligula. In hac habitasse platea dictumst. Praesent non lacus elit. Sed convallis erat sem, ac egestas ipsum tempor in. Sed consectetur ex at dolor ullamcorper vulputate. Ut tristique ipsum velit, eget pretium ipsum dictum vel. Aenean ut tempus elit, non facilisis odio. Vivamus hendrerit ipsum vel risus ultrices, ut ornare metus ornare. Quisque semper ante ac pellentesque vestibulum. Cras a massa turpis. Pellentesque congue leo velit, non porta dui euismod nec.<br> <br> Mauris sed enim risus. Quisque mollis justo quis commodo euismod. Nullam non massa in lorem cursus sagittis. Sed laoreet felis mauris, a eleifend sapien molestie eget. Duis at volutpat elit. Phasellus sit amet erat ut libero lobortis sollicitudin pellentesque ac lectus. Phasellus venenatis ultrices justo nec venenatis.<br><br></p>
+
+        <div class = "ProductDetailLorem"><span class="badge" id="badge1">1</span>   Non porta dui euismod nec</div>
+        <br>
+        <div class = "ProductDetailLorem"><span class="badge" id="badge2">2</span>   Ut tristique ipsum velit</div>
+        <br>
+        <div class = "ProductDetailLorem"><span class="badge" id="badge3">3</span>  Quisque mollis justo</div>
+
+        <br>
+
+        <button type="button" class="btn btn-primary buyButton">Buy Online
+          <span class="icon">
+           <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+         </span>
+       </button>
+
+        <br>
+       <br>
+
+
+     </div>
+
+
+
+  <div style="position: relative; text-align: center;  width: 400px;  float:left;" class="ProductPictures">
+      <img src="images/cereal_b.jpg" style="max-width: 100%;">
+      <div class="badge" id="pictureBadge1" style="position: absolute; bottom: 50%; left: 30%;">1</div>
+      <div class="badge" id="pictureBadge2" style="position: absolute; bottom: 35%; left: 75%;">2</div>
+      <div class="badge" id="pictureBadge3" style="position: absolute; bottom: 13%; left: 49%;">3</div>
+    </div>
+  </div>
+
+     <div id="ProductTwoDetails" style="width: 90%; background-color: #F7F7F7; margin: 5%; padding: 2%; display: none; position: relative;">
+        <h3 style="font-size: 24px;">Product Title 2</h3>  
+         <button type="button" id="close2" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+         <br>
+            <div style="width:50%; float:left; padding-right: 25px;">
+                <div class="StartingAt ProductDetailLorem" style="color:#4987ca; font-size: 19px;">Starting at $1,900</div>         
+                <br>
+                <p class = "ProductDetailLorem">Cras a ante eget dui dignissim molestie nec non lectus. Donec id sapien tristique, iaculis odio a, gravida ligula. In hac habitasse platea dictumst. Praesent non lacus elit. Sed convallis erat sem, ac egestas ipsum tempor in. Sed consectetur ex at dolor ullamcorper vulputate. Ut tristique ipsum velit, eget pretium ipsum dictum vel. Aenean ut tempus elit, non facilisis odio. Vivamus hendrerit ipsum vel risus ultrices, ut ornare metus ornare. Quisque semper ante ac pellentesque vestibulum. Cras a massa turpis. Pellentesque congue leo velit, non porta dui euismod nec.<br> <br> Mauris sed enim risus. Quisque mollis justo quis commodo euismod. Nullam non massa in lorem cursus sagittis. Sed laoreet felis mauris, a eleifend sapien molestie eget. Duis at volutpat elit. Phasellus sit amet erat ut libero lobortis sollicitudin pellentesque ac lectus. Phasellus venenatis ultrices justo nec venenatis.<br><br></p>                              
+              <br>
+
+               <button type="button" class="btn btn-primary buyButton">Buy Online
+                        <span class="icon">
+                         <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+                        </span>
+                </button>
+
+                 <br>
+                 <br>
+
+
+            </div>
+
+            <div style="position: relative; text-align: center; width: 400px; float:left;" class="ProductPictures">
+              <img src="images/flower_b.jpg" style="max-width: 100%;">    
+            </div>   
+          </div>
+
+
+
+
+          <div id="ProductThreeDetails" style="width: 90%; background-color: #F7F7F7; margin: 5%; padding: 2%; display: none; position: relative;">
+            <h3 style="font-size: 24px;">Product Title 3</h3>  
+            <button type="button" id="close3" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+            <br>
+            <div style="width:50%; float:left; padding-right: 25px;">
+              <div class="StartingAt  ProductDetailLorem" style="color:#4987ca; font-size: 19px;">Starting at $2,730</div>         
+              <br>
+              <p class = "ProductDetailLorem">Cras a ante eget dui dignissim molestie nec non lectus. Donec id sapien tristique, iaculis odio a, gravida ligula. In hac habitasse platea dictumst. Praesent non lacus elit. Sed convallis erat sem, ac egestas ipsum tempor in. Sed consectetur ex at dolor ullamcorper vulputate. Ut tristique ipsum velit, eget pretium ipsum dictum vel. Aenean ut tempus elit, non facilisis odio. Vivamus hendrerit ipsum vel risus ultrices, ut ornare metus ornare. Quisque semper ante ac pellentesque vestibulum. Cras a massa turpis. Pellentesque congue leo velit, non porta dui euismod nec.<br> <br> Mauris sed enim risus. Quisque mollis justo quis commodo euismod. Nullam non massa in lorem cursus sagittis. Sed laoreet felis mauris, a eleifend sapien molestie eget. Duis at volutpat elit. Phasellus sit amet erat ut libero lobortis sollicitudin pellentesque ac lectus. Phasellus venenatis ultrices justo nec venenatis.<br><br></p>
+              
+              <br>
+
+              <button type="button" class="btn btn-primary buyButton">Buy Online
+                <span class="icon">
+                 <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+               </span>
+             </button>
+
+              <br>
+              <br>
+
+
+           </div>
+           <div style="position: relative; text-align: center; width: 400px; float:left;"  class="ProductPictures">
+            <img src="images/machine_b.jpg" style="max-width: 100%;">                   
+          </div>  
+        </div>
+
+
+
+        <div id="ProductFourDetails" style="width: 90%; background-color: #F7F7F7; margin: 5%; padding: 2%; display: none; position: relative;">
+          <h3 style="font-size: 24px;">Product Title 4</h3>  
+          <button type="button" id="close4" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
+          <br>
+          <div style="width:50%; float:left; padding-right: 25px;">
+            <div class="StartingAt  ProductDetailLorem" style="color:#4987ca; font-size: 19px;">Starting at $500</div>   
+            <br>      
+            <p class = "ProductDetailLorem">Cras a ante eget dui dignissim molestie nec non lectus. Donec id sapien tristique, iaculis odio a, gravida ligula. In hac habitasse platea dictumst. Praesent non lacus elit. Sed convallis erat sem, ac egestas ipsum tempor in. Sed consectetur ex at dolor ullamcorper vulputate. Ut tristique ipsum velit, eget pretium ipsum dictum vel. Aenean ut tempus elit, non facilisis odio. Vivamus hendrerit ipsum vel risus ultrices, ut ornare metus ornare. Quisque semper ante ac pellentesque vestibulum. Cras a massa turpis. Pellentesque congue leo velit, non porta dui euismod nec.<br> <br> Mauris sed enim risus. Quisque mollis justo quis commodo euismod. Nullam non massa in lorem cursus sagittis. Sed laoreet felis mauris, a eleifend sapien molestie eget. Duis at volutpat elit. Phasellus sit amet erat ut libero lobortis sollicitudin pellentesque ac lectus. Phasellus venenatis ultrices justo nec venenatis.<br><br></p>
+
+            <br>
+
+            <button type="button" class="btn btn-primary buyButton">Buy Online
+              <span class="icon">
+               <i class="fa fa-chevron-right" style="font-size: 10px; margin-left: 5px;"></i>
+             </span>
+           </button>
+
+            <br>
+            <br>
+
+
+         </div>
+
+         <div style="position: relative; text-align: center; width: 400px;  float:left;"  class="ProductPictures">
+          <img src="images/candy_b.jpg" style="max-width: 100%;">                                   
+        </div>
+
+
+      </div>
+
+
+
+<script type="text/javascript">
+
+
+  $(document).ready(function(){
+      var width = screen.width,
+        height = screen.height;
+ 
+        if (screen.width <= 500) {
+          console.log('mobile mode')
+    
+           $('.HideIfMobile').remove();
+           $('.LearnMore').css('width','275px');
+           $('.Products').css('width',screen.width - 60);
+           $('.buyButton').css('width','275px');
+           $('.ProductPictures').css('width','275px');
+           $('.ProductDetailLorem').css('width','275px');
+            $('.ProductDetailLorem2').css('width','300px');
+            $('.smallerMobile').css('font-size','34px');
+            $('.smallerMobile').css('text-align','center');           
+
+        }
+
+
+
+});
+
+
+$("#badge1").hover(function(){
+    $('#pictureBadge1').css('font-size', '18px');
+    $('#badge1').css('font-size', '18px');
+}, function(){
+   $('#pictureBadge1').css('font-size', '12px');
+   $('#badge1').css('font-size', '12px');
+});
+
+
+$("#badge2").hover(function(){
+    $('#pictureBadge2').css('font-size', '18px');
+    $('#badge2').css('font-size', '18px');
+}, function(){
+   $('#pictureBadge2').css('font-size', '12px');
+   $('#badge2').css('font-size', '12px');
+});
+
+$("#badge3").hover(function(){
+    $('#pictureBadge3').css('font-size', '18px');
+    $('#badge3').css('font-size', '18px');
+}, function(){
+   $('#pictureBadge3').css('font-size', '12px');
+   $('#badge3').css('font-size', '12px');
+});
+
+
+
+$("#500").click(function(){
+    
+   $('#ProductOneDetails').css('display','inline-block');
+});
+
+$("#1900").click(function(){
+    
+   $('#ProductTwoDetails').css('display','inline-block');
+});
+
+$("#2730").click(function(){
+    
+   $('#ProductThreeDetails').css('display','inline-block');
+});
+
+$("#731").click(function(){
+    
+   $('#ProductFourDetails').css('display','inline-block');
+});
+
+
+$("#close1").click(function(){
+    
+   $('#ProductOneDetails').css('display','none');
+});
+
+$("#close2").click(function(){
+    
+   $('#ProductTwoDetails').css('display','none');
+});
+
+$("#close3").click(function(){
+    
+   $('#ProductThreeDetails').css('display','none');
+});
+
+$("#close4").click(function(){
+    
+   $('#ProductFourDetails').css('display','none');
+});
+
+
+
+
+
+function DisplayProducts()
+{
+
+   var PriceSelect = $("#PriceSelect option:selected").val();
+
+
+   jQuery('.Products').each(function() 
+        { 
+             if(PriceSelect == "All")
+             {                             
+                  $('#'+this.id).show();               
+             }
+
+
+             if(PriceSelect == "500-999")
+             {
+                console.log(parseFloat(this.id))
+                if(parseFloat(this.id) >= 500 & parseFloat(this.id) < 1000)
+                {
+                  $('#'+this.id).show();
+                }
+                else
+                {
+                  $('#'+this.id).hide();
+                }
+             }
+
+               if(PriceSelect == "1000-1999")
+             {
+                console.log(parseFloat(this.id))
+                if(parseFloat(this.id) >= 1000 & parseFloat(this.id) < 2000)
+                {
+                  $('#'+this.id).show();
+                }
+                else
+                {
+                  $('#'+this.id).hide();
+                }
+             }
+
+              if(PriceSelect == "2000More")
+             {
+                console.log(parseFloat(this.id))
+                if(parseFloat(this.id) >= 2000)
+                {
+                  $('#'+this.id).show();
+                }
+                else
+                {
+                  $('#'+this.id).hide();
+                }
+             }
+         
+           
+
+        });
+   
+
+}
+
+       
+function autocomplete(inp, arr) 
+{
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+
+              document.getElementById("StateModalTitle").innerHTML = inp.value;
+              $('#StateModal').modal('show');
+           
+
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+
+
+ var States = [
+ "Alabama",
+ "Alaska",
+ "American Samoa",
+ "Arizona",
+ "Arkansas",
+ "California",
+ "Colorado",
+ "Connecticut",
+ "Delaware",
+ "District Of Columbia",
+ "Federated States Of Micronesia",
+ "Florida",
+ "Georgia",
+ "Guam",
+ "Hawaii",
+ "Idaho",
+ "Illinois",
+ "Indiana",
+ "Iowa",
+ "Kansas",
+ "Kentucky",
+ "Louisiana",
+ "Maine",
+ "Marshall Islands",
+ "Maryland",
+ "Massachusetts",
+ "Michigan",
+ "Minnesota",
+ "Mississippi",
+ "Missouri",
+ "Montana",
+ "Nebraska",
+ "Nevada",
+ "New Hampshire",
+ "New Jersey",
+ "New Mexico",
+ "New York",
+ "North Carolina",
+ "North Dakota",
+ "Northern Mariana Islands",
+ "Ohio",
+ "Oklahoma",
+ "Oregon",
+ "Palau",
+ "Pennsylvania",
+ "Puerto Rico",
+ "Rhode Island",
+ "South Carolina",
+ "South Dakota",
+ "Tennessee",
+ "Texas",
+ "Utah",
+ "Vermont",
+ "Virgin Islands",
+ "Virginia",
+ "Washington",
+ "West Virginia",
+ "Wisconsin",
+ "Wyoming"
+]
+
+
+
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+autocomplete(document.getElementById("myInput"), States);
+
+        </script>
+        </div>
+    </body>
+</html>
